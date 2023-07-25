@@ -1,0 +1,2 @@
+# chatgpt_wechat_daily_news
+对chatgpt_on_wechat 原项目做的每日群里发n个新闻网站获取实时资讯的扩展，爬虫+定时发送扩展。
