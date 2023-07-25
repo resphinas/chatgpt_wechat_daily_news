@@ -225,6 +225,3 @@ FAQs： <https://github.com/zhayujie/chatgpt-on-wechat/wiki/FAQs>
 
 
 
-如果你想了解更多项目细节，与开发者们交流更多关于AI技术的实践，欢迎加入星球:
-
-<a href="https://public.zsxq.com/groups/88885848842852.html"><img width="360" src="./docs/images/planet.jpg"></a>
