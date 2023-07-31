@@ -171,13 +171,13 @@ class ChatGPTBot(Bot, OpenAIImage):
                 print("情感检测: ",rsp.choices[0]['message']['content'])
                 emotion_test_word = rsp.choices[0]['message']['content']
                 print("情感结果:", emotion_test_word.strip())
-                if "非情感" not in emotion_test_word:
-                    flag = get_emotion_img(emotion_test_word)
-                    print("flag = {}".format(flag))
-                    if flag:
-                        print("检测完毕，进入推送图片环节")
-                        chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
-                        itchat.send_image(fileDir="image/image.jpg", toUserName=chatroom_name)
+                # if "非情感" not in emotion_test_word:
+                    # flag = get_emotion_img(emotion_test_word)
+                    # print("flag = {}".format(flag))
+                    # if flag:
+                    #     print("检测完毕，进入推送图片环节")
+                    #     chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
+                    #     itchat.send_image(fileDir="image/image.jpg", toUserName=chatroom_name)
 
             logger.debug("[CHATGPT] response={}".format(response))
             logger.info("[ChatGPT] reply={}, total_tokens={}".format(response.choices[0]['message']['content'], response["usage"]["total_tokens"]))

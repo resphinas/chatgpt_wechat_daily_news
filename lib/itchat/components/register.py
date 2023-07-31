@@ -1,6 +1,8 @@
 import datetime
 import logging, traceback, sys, threading
 import time
+
+from baidu_hot_rank import getContext
 from lib import itchat
 from news_spider import spider_techcruch,spider_inner,spider_jiqizhixin,spider_scitechdaily,spider_venturebeat,spider_it_daily
 from weather import get_weather
@@ -124,8 +126,7 @@ def configured_reply(self,time_flag,diy_msg):
         #         user_name = detail["UserName"]
         # print(chatroom)
         # print(memberList)
-        chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
-
+        chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
         itchat.send(content, toUserName=chatroom_name)
 
         # itchat.send(content, toUserName=msg_dict.get('FromUserName'))
@@ -135,40 +136,46 @@ def configured_reply(self,time_flag,diy_msg):
             # 从文件中加载字典
             # msg_dict = load_dict_from_file("function_dict1.pkl")
             # loaded_dict = load_dict_from_file("function_dict.pkl").get("Text")
-
             result = spider_jiqizhixin()
             result2=spider_scitechdaily()
             result3 = spider_venturebeat()
             result4 = spider_it_daily()
+            result5 = getContext()
             if result != None:
                 print(result)
             if result != None:
 
-                chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
+                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result, toUserName=chatroom_name)
             else:
                 print("机器之心心跳")
 
             if result2 != None:
 
-                chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
+                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result2, toUserName=chatroom_name)
             else:
                 print("每日科学心跳")
 
             if result3 != None:
 
-                chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
+                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result3, toUserName=chatroom_name)
             else:
                 print("venturebeat心跳")
 
             if result4 != None:
 
-                chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
+                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result4, toUserName=chatroom_name)
+
+            if result5 != None:
+
+                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
+                itchat.send(result5, toUserName=chatroom_name)
+                time.sleep(1800)
             else:
-                print("it之家心跳")
+                print("百度热搜心跳")
         except Exception as file:
             print(file,traceback.print_exc())
             time.sleep(0.5)
