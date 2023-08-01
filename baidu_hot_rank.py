@@ -26,7 +26,8 @@ def getSoup(Url):
     return soup
 
 
-def getContext():
+def getContext(type):
+    global filename
     news = []
     soup = getSoup(url)
     # 获取<div class='category-wrap_iQLoo horizontal_1eKyQ'></div>所有标签项
@@ -57,8 +58,12 @@ def getContext():
 
     # print(len(info_clear_all))
 
+    if type == 1:
+        filename = 'baidu_hot_28.txt'
+    elif type == 2:
+        filename = 'baidu_hot_rk.txt'
     try:
-        with open('baidu_hot.txt', 'rb') as f:
+        with open(filename, 'rb') as f:
             bhr = pickle.load(f)
     except:
         bhr = {}
@@ -68,7 +73,7 @@ def getContext():
     for item in news:
         if item not in bhr:
             news_list.append(item)
-    with open('baidu_hot.txt', 'wb') as f:
+    with open(filename, 'wb') as f:
         pickle.dump(news, f)
 
     news_message = "百度热搜榜:\n\n"
@@ -85,5 +90,5 @@ def getContext():
 
 
 if __name__ == "__main__":
-    hot_rank_list = getContext()
+    hot_rank_list = getContext(1)
     print(hot_rank_list)

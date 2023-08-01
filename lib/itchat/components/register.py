@@ -143,7 +143,7 @@ def configured_reply(self,time_flag,diy_msg):
             result2=spider_scitechdaily()
             result3 = spider_venturebeat()
             result4 = spider_it_daily()
-            # result5 = getContext()
+            result5 = getContext(2)
             if result != None:
                 print(result)
             if result != None:
@@ -172,17 +172,17 @@ def configured_reply(self,time_flag,diy_msg):
                 chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result4, toUserName=chatroom_name)
 
-            # if result5 != None:
-            #     chatroom_name = itchat.search_chatrooms(name='28')[0]['UserName']
-            #     itchat.send(result5, toUserName=chatroom_name)
+            if result5 != None:
+                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
+                itchat.send(result5, toUserName=chatroom_name)
                 # def send_message():
                 #     chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 #     itchat.send(result5, toUserName=chatroom_name)
                 # timer = threading.Timer(1800, send_message)
                 # timer.start()
                 # time.sleep(1800)
-            # else:
-            #     print("百度热搜心跳")
+            else:
+                print("百度热搜心跳")
         except Exception as file:
             print(file,traceback.print_exc())
             time.sleep(0.5)
@@ -191,17 +191,11 @@ def configured_reply(self,time_flag,diy_msg):
             # 从文件中加载字典
             # msg_dict = load_dict_from_file("function_dict1.pkl")
             # loaded_dict = load_dict_from_file("function_dict.pkl").get("Text")
-            result5 = getContext()
+            result5 = getContext(1)
 
             if result5 != None:
                 chatroom_name = itchat.search_chatrooms(name='28')[0]['UserName']
                 itchat.send(result5, toUserName=chatroom_name)
-                # def send_message():
-                #     chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
-                #     itchat.send(result5, toUserName=chatroom_name)
-                # timer = threading.Timer(1800, send_message)
-                # timer.start()
-                # time.sleep(1800)
             else:
                 print("百度热搜心跳")
         except Exception as file:
@@ -293,7 +287,7 @@ def run(self, debug=False, blockThread=True):
                 elif run_at_minute(12):
                     self.configured_reply(2, "测试  time=" + str(current_time))
 
-                elif run_at_minute(60):
+                elif run_at_minute(30):
                     self.configured_reply(3, "测试  time=" + str(current_time))
                 else:
                     logging.info("time not equal")
