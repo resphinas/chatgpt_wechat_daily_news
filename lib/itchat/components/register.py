@@ -1,11 +1,14 @@
 import datetime
-import logging, traceback, sys, threading
+import logging
+import sys
+import threading
 import time
+import traceback
 
 from baidu_hot_rank import getContext
 from lib import itchat
-from news_spider import spider_techcruch,spider_inner,spider_jiqizhixin,spider_scitechdaily,spider_venturebeat,spider_it_daily
-from weather import get_weather
+from news_spider import spider_techcruch, spider_inner, spider_jiqizhixin, spider_scitechdaily, spider_venturebeat, \
+    spider_it_daily
 
 try:
     import Queue
@@ -44,9 +47,9 @@ def run_at_noon():
     if now.hour == 8 and now.minute == 0 and now.second<2:
         return 1
 
-def run_at_minute():
+def run_at_minute(minute):
     now = datetime.datetime.now()
-    if  now.minute % 3 ==0 and now.second >30 and now.second <35 :
+    if  now.minute % minute ==0 and now.second >30 and now.second <35 :
         return 1
     else:
         return 0
@@ -140,7 +143,7 @@ def configured_reply(self,time_flag,diy_msg):
             result2=spider_scitechdaily()
             result3 = spider_venturebeat()
             result4 = spider_it_daily()
-            result5 = getContext()
+            # result5 = getContext()
             if result != None:
                 print(result)
             if result != None:
@@ -169,15 +172,40 @@ def configured_reply(self,time_flag,diy_msg):
                 chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result4, toUserName=chatroom_name)
 
-            if result5 != None:
+            # if result5 != None:
+            #     chatroom_name = itchat.search_chatrooms(name='28')[0]['UserName']
+            #     itchat.send(result5, toUserName=chatroom_name)
+                # def send_message():
+                #     chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
+                #     itchat.send(result5, toUserName=chatroom_name)
+                # timer = threading.Timer(1800, send_message)
+                # timer.start()
+                # time.sleep(1800)
+            # else:
+            #     print("百度热搜心跳")
+        except Exception as file:
+            print(file,traceback.print_exc())
+            time.sleep(0.5)
+    elif time_flag == 3:
+        try:
+            # 从文件中加载字典
+            # msg_dict = load_dict_from_file("function_dict1.pkl")
+            # loaded_dict = load_dict_from_file("function_dict.pkl").get("Text")
+            result5 = getContext()
 
-                chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
+            if result5 != None:
+                chatroom_name = itchat.search_chatrooms(name='28')[0]['UserName']
                 itchat.send(result5, toUserName=chatroom_name)
-                time.sleep(1800)
+                # def send_message():
+                #     chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
+                #     itchat.send(result5, toUserName=chatroom_name)
+                # timer = threading.Timer(1800, send_message)
+                # timer.start()
+                # time.sleep(1800)
             else:
                 print("百度热搜心跳")
         except Exception as file:
-            print(file,traceback.print_exc())
+            print(file, traceback.print_exc())
             time.sleep(0.5)
 
 
@@ -262,9 +290,11 @@ def run(self, debug=False, blockThread=True):
                     self.last_time = current_time
 
                     continue
-                elif run_at_minute():
+                elif run_at_minute(12):
                     self.configured_reply(2, "测试  time=" + str(current_time))
 
+                elif run_at_minute(60):
+                    self.configured_reply(3, "测试  time=" + str(current_time))
                 else:
                     logging.info("time not equal")
 

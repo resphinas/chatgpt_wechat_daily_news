@@ -4,9 +4,11 @@
 @Author : JMz
 @Date   : 2023/7/31 0031 2023/07/31
 """
+import pickle
+import re
+
 import requests
 from bs4 import BeautifulSoup
-import re
 
 url = 'http://top.baidu.com/buzz?b=1&fr=topindex'
 
@@ -54,15 +56,31 @@ def getContext():
         news.append(title + '\n' + hot_html_str)
 
     # print(len(info_clear_all))
+
+    try:
+        with open('baidu_hot.txt', 'rb') as f:
+            bhr = pickle.load(f)
+    except:
+        bhr = {}
+        # print(cjb)
+
+    news_list = []
+    for item in news:
+        if item not in bhr:
+            news_list.append(item)
+    with open('baidu_hot.txt', 'wb') as f:
+        pickle.dump(news, f)
+
     news_message = "百度热搜榜:\n\n"
-    if news == []:
+
+    if news_list == []:
         return None
-    for i in range(len(news)):
-        if len(news) > 1:
-            add_string = str(i+1)+"."
+    for i in range(len(news_list)):
+        if len(news_list) > 1:
+            add_string = str(i+1) + "、"
         else:
             add_string = ""
-        news_message += f"{add_string}{news[i]}\n"
+        news_message += f"{add_string}{news_list[i]}\n"
     return news_message
 
 
