@@ -171,7 +171,8 @@ def configured_reply(self,time_flag,diy_msg):
 
                 chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result4, toUserName=chatroom_name)
-
+            else:
+                print("it之家心跳")
             if result5 != None:
                 chatroom_name = itchat.search_chatrooms(name='软考冲刺过过过！')[0]['UserName']
                 itchat.send(result5, toUserName=chatroom_name)
@@ -188,16 +189,17 @@ def configured_reply(self,time_flag,diy_msg):
             time.sleep(0.5)
     elif time_flag == 3:
         try:
+            pass
             # 从文件中加载字典
             # msg_dict = load_dict_from_file("function_dict1.pkl")
             # loaded_dict = load_dict_from_file("function_dict.pkl").get("Text")
-            result5 = getContext(1)
-
-            if result5 != None:
-                chatroom_name = itchat.search_chatrooms(name='28')[0]['UserName']
-                itchat.send(result5, toUserName=chatroom_name)
-            else:
-                print("百度热搜心跳")
+            # result5 = getContext(1)
+            #
+            # if result5 != None:
+            #     chatroom_name = itchat.search_chatrooms(name='高中数学应用题')[0]['UserName']
+            #     itchat.send(result5, toUserName=chatroom_name)
+            # else:
+            #     print("百度热搜心跳")
         except Exception as file:
             print(file, traceback.print_exc())
             time.sleep(0.5)
